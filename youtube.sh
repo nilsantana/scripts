@@ -26,6 +26,8 @@ function youtube(){
         _title=$(grep '<title>' "$_video" | sed 's/<[^>]*>//g' | sed 's/ - You.*//g')
         local _views
         _views=$(grep 'watch-view-count' "$_video" | sed 's/<[^>]*>//g')
+	local _publi
+	_publi=$(egrep 'Publicado.*<\/strong>' "$_video" | sed 's/.*Publicado/Publicado/g; s/<\/strong>.*//g')
         local _likes
         _likes=$(grep 'like-button-renderer-like-button' "$_video"  |sed -n 1p | sed 's/<[^>]*>//g;s/ //g')
         local _dislikes
@@ -41,6 +43,7 @@ function youtube(){
         echo "Título do canal $_tchannel"
         echo "Inscritos: $_subscribers"
         echo "Titulo do video:  $_title"
+	echo "Data: $_publi"
         echo "Visualizações: $_views"
         echo "Gostei: $_likes"
         echo "Dislikes: $_dislikes"
